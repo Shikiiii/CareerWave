@@ -51,7 +51,21 @@ function EditJobContent({ jobId }: { jobId: string }) {
       <PageHeading eyebrow="Job management" title="Edit listing" description="Update the public details and status of this job listing." />
       {loading ? <LoadingState label="Loading job listing..." /> : null}
       {error ? <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div> : null}
-      {job ? <div className="mt-8 max-w-4xl"><JobForm mode="edit" job={job} /></div> : null}
+      {job ? (
+        <div className="mt-8 max-w-4xl">
+          <JobForm
+            mode="edit"
+            job={{
+              ...job,
+              benefits: job.benefits ?? "",
+              salaryDisplayType: job.salaryDisplayType ?? "NOT_SPECIFIED",
+              salaryTaxType: job.salaryTaxType ?? "UNSPECIFIED",
+              salaryMin: job.salaryMin ?? null,
+              salaryMax: job.salaryMax ?? null,
+            }}
+          />
+        </div>
+      ) : null}
     </DashboardShell>
   );
 }
