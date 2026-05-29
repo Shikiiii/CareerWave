@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
 import { EmploymentType, ExperienceLevel, JobStatus, RemoteType } from "@prisma/client";
 import { JobCard } from "@/components/jobs/job-card";
@@ -172,7 +173,20 @@ export default async function Home({
           </div>
         </div>
 
-        <JobFilters />
+        <Suspense
+          fallback={
+            <div className="rounded-3xl border border-blue-100 bg-white p-5 shadow-sm">
+              <div className="grid gap-4 md:grid-cols-4">
+                <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+                <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+                <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+                <div className="h-11 animate-pulse rounded-xl bg-blue-100" />
+              </div>
+            </div>
+          }
+        >
+          <JobFilters />
+        </Suspense>
 
         <section className="mt-12">
           <div className="mb-5 flex items-end justify-between gap-4">

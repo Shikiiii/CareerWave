@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,7 +19,7 @@ const schema = z.object({
 
 type LoginForm = z.infer<typeof schema>;
 
-export default function LoginPage() {
+function LoginFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const login = useAuthStore((state) => state.login);
@@ -33,12 +34,13 @@ export default function LoginPage() {
   async function onSubmit(values: LoginForm) {
     const user = await login(values);
     const next = searchParams.get("next");
+
     router.push(next ?? (user.role === "EMPLOYER" ? "/employer" : "/account"));
     router.refresh();
   }
 
   return (
-    <AuthShell title="Welcome back" subtitle="Sign in to manage your applications or employer dashboard.">
+    <>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         {error ? <Alert className="border-red-200 bg-red-50 text-red-700">{error}</Alert> : null}
         <FormField label="Email" type="email" autoComplete="email" {...form.register("email")} error={form.formState.errors.email} />
@@ -60,6 +62,24 @@ export default function LoginPage() {
           Create an account
         </Link>
       </p>
+    </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <AuthShell title="Welcome back" subtitle="Sign in to manage your applications or employer dashboard.">
+      <Suspense
+        fallback={
+          <div className="space-y-5">
+            <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+            <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+            <div className="h-11 animate-pulse rounded-xl bg-blue-100" />
+          </div>
+        }
+      >
+        <LoginFormContent />
+      </Suspense>
     </AuthShell>
   );
 }
