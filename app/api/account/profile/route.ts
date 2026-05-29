@@ -1,12 +1,19 @@
 import { NextRequest } from "next/server";
 import { apiError, apiOk } from "@/lib/api-response";
 import { requireRole } from "@/lib/auth/session";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { updateProfileSchema } from "@/lib/validation/account";
 
-function parseJsonField(value?: string) {
-  if (!value) return null;
-  return value.split("\n").map((line) => line.trim()).filter(Boolean);
+function parseJsonField(value?: string): Prisma.InputJsonValue | typeof Prisma.JsonNull | undefined {
+  if (!value || !value.trim()) return Prisma.JsonNull;
+
+  const lines = value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  return lines.length > 0 ? lines : Prisma.JsonNull;
 }
 
 function normalizeEmpty(value?: string | null) {
