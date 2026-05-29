@@ -1,0 +1,27 @@
+# File Placement Added in Prompt 2
+
+- `package.json` - dependencies and scripts
+- `.env.example` - production-like environment variable template
+- `.env.local.example` - local development environment template
+- `.gitignore` - ignores node_modules, build output, env files, uploaded files
+- `next.config.ts` - Next.js config
+- `tsconfig.json` - TypeScript config with `@/*` alias
+- `tailwind.config.ts` - Tailwind + shadcn-compatible theme config
+- `postcss.config.mjs` - Tailwind PostCSS config
+- `components.json` - shadcn/ui config
+- `app/globals.css` - global styles and blue theme variables
+- `app/layout.tsx` - root layout
+- `app/page.tsx` - temporary landing page
+- `app/api/health/route.ts` - health check API
+- `lib/prisma.ts` - Prisma client singleton
+- `lib/env.ts` - environment validation
+- `lib/utils.ts` - className helper for shadcn/Tailwind
+- `lib/api-response.ts` - shared API response helpers
+- `lib/constants.ts` - shared constants
+- `config/site.ts` - site metadata
+- `types/api.ts` - API response types
+- `types/auth.ts` - auth types
+- `prisma/schema.prisma` - schema from Prompt 1
+- `prisma/seed.ts` - placeholder seed script
+- `docs/SETUP.md` - setup instructions
+- `scripts/create-folders.sh` - folder creation script

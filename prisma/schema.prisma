@@ -1,0 +1,326 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  JOB_SEEKER
+  EMPLOYER
+  ADMIN
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  FREELANCE
+  TEMPORARY
+}
+
+enum RemoteType {
+  ON_SITE
+  HYBRID
+  REMOTE
+}
+
+enum ExperienceLevel {
+  INTERN
+  JUNIOR
+  MID
+  SENIOR
+  LEAD
+  MANAGER
+}
+
+enum JobStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  CLOSED
+  DELETED
+}
+
+enum SalaryDisplayType {
+  NOT_SPECIFIED
+  FLAT
+  RANGE
+}
+
+enum SalaryTaxType {
+  UNSPECIFIED
+  NET
+  GROSS
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  REVIEWING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum DocumentType {
+  CV
+  COVER_LETTER
+  CERTIFICATE
+  PORTFOLIO
+  OTHER
+}
+
+enum NotificationType {
+  APPLICATION_SUBMITTED
+  APPLICATION_REVIEWING
+  APPLICATION_ACCEPTED
+  APPLICATION_REJECTED
+  APPLICATION_WITHDRAWN
+  NEW_APPLICANT
+  JOB_PAUSED
+  JOB_CLOSED
+}
+
+enum InterviewStatus {
+  NOT_SCHEDULED
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id             String        @id @default(cuid())
+  email          String        @unique
+  passwordHash   String
+  role           UserRole
+  status         AccountStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  profile        UserProfile?
+  employer       Employer?
+  refreshTokens  RefreshToken[]
+  documents      UploadedDocument[]
+  applications   Application[]
+  bookmarks      Bookmark[]
+  notifications  Notification[]
+
+  @@index([role])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model UserProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  fullName       String
+  phone          String?
+  location       String?
+  headline       String?
+  bio            String?
+  skills         String[] @default([])
+  education      Json?
+  workExperience Json?
+  websiteUrl     String?
+  linkedinUrl    String?
+  githubUrl      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Employer {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyProfile CompanyProfile?
+  jobs           JobListing[]
+  interviewNotes InterviewNote[]
+}
+
+model CompanyProfile {
+  id             String   @id @default(cuid())
+  employerId     String   @unique
+  companyName    String
+  companyEmail   String
+  phone          String?
+  websiteUrl     String?
+  location       String?
+  industry       String?
+  employeeCount  String?
+  description    String?
+  logoUrl        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  employer       Employer @relation(fields: [employerId], references: [id], onDelete: Cascade)
+
+  @@index([companyName])
+  @@index([location])
+  @@index([industry])
+}
+
+model RefreshToken {
+  id           String   @id @default(cuid())
+  userId       String
+  tokenHash    String   @unique
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model JobListing {
+  id              String          @id @default(cuid())
+  employerId      String
+  title           String
+  slug            String          @unique
+  description     String
+  requirements    String
+  benefits        String?
+  location        String
+  salaryMin       Int?
+  salaryMax       Int?
+  currency        String          @default("EUR")
+  salaryDisplayType SalaryDisplayType @default(NOT_SPECIFIED)
+  salaryTaxType   SalaryTaxType     @default(UNSPECIFIED)
+  viewCount       Int             @default(0)
+  employmentType  EmploymentType
+  remoteType      RemoteType
+  experienceLevel ExperienceLevel
+  status          JobStatus       @default(DRAFT)
+  expiresAt       DateTime?
+  publishedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  employer        Employer        @relation(fields: [employerId], references: [id], onDelete: Cascade)
+  applications    Application[]
+  bookmarks       Bookmark[]
+
+  @@index([employerId])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([createdAt])
+  @@index([location])
+  @@index([employmentType])
+  @@index([remoteType])
+  @@index([experienceLevel])
+  @@index([salaryMin, salaryMax])
+}
+
+model Application {
+  id             String            @id @default(cuid())
+  userId         String
+  jobId          String
+  status         ApplicationStatus @default(SUBMITTED)
+  coverLetter    String?
+  submittedAt    DateTime          @default(now())
+  reviewedAt     DateTime?
+  withdrawnAt    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job            JobListing        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  documents      UploadedDocument[]
+  interviewNotes InterviewNote[]
+
+  @@unique([userId, jobId])
+  @@index([userId])
+  @@index([jobId])
+  @@index([status])
+  @@index([submittedAt])
+}
+
+model UploadedDocument {
+  id            String       @id @default(cuid())
+  userId        String
+  applicationId String?
+  type          DocumentType
+  originalName  String
+  fileName      String
+  fileUrl       String
+  mimeType      String
+  sizeBytes     Int
+  isDefaultCv   Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([applicationId])
+  @@index([type])
+  @@index([isDefaultCv])
+}
+
+model Bookmark {
+  id        String     @id @default(cuid())
+  userId    String
+  jobId     String
+  createdAt DateTime   @default(now())
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job       JobListing @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+  @@index([userId])
+  @@index([jobId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  readAt    DateTime?
+  metadata  Json?
+  createdAt DateTime         @default(now())
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([readAt])
+  @@index([createdAt])
+}
+
+model InterviewNote {
+  id             String          @id @default(cuid())
+  applicationId  String
+  employerId     String
+  status         InterviewStatus @default(NOT_SCHEDULED)
+  scheduledAt    DateTime?
+  contactEmail   String?
+  contactPhone   String?
+  notes          String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  application    Application     @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  employer       Employer        @relation(fields: [employerId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([employerId])
+  @@index([status])
+  @@index([scheduledAt])
+}
