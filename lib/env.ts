@@ -17,6 +17,8 @@ const envSchema = z.object({
   WRITE_RATE_LIMIT_WINDOW_MS: z.coerce.number().default(60_000),
   UPLOAD_DIR: z.string().default("public/uploads"),
   MAX_UPLOAD_MB: z.coerce.number().default(5),
+  FILE_STORAGE_DRIVER: z.enum(["auto", "local", "vercel-blob"]).default("auto"),
+  BLOB_READ_WRITE_TOKEN: z.string().optional(),
 });
 
 export const env = envSchema.parse(process.env);

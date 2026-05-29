@@ -30,6 +30,7 @@
     "@radix-ui/react-slot": "latest",
     "@radix-ui/react-tabs": "latest",
     "@radix-ui/react-toast": "latest",
+    "@vercel/blob": "^2.4.0",
     "axios": "latest",
     "bcryptjs": "latest",
     "class-variance-authority": "latest",
