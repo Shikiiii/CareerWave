@@ -13,7 +13,13 @@ export async function PATCH(_request: NextRequest, { params }: { params: Promise
       include: { job: { include: { employer: true } } },
     });
     if (!existing) return apiError("Application not found.", 404);
-    if ([ApplicationStatus.ACCEPTED, ApplicationStatus.REJECTED, ApplicationStatus.WITHDRAWN].includes(existing.status)) {
+    const nonWithdrawableStatuses: ApplicationStatus[] = [
+      ApplicationStatus.ACCEPTED,
+      ApplicationStatus.REJECTED,
+      ApplicationStatus.WITHDRAWN,
+    ];
+
+    if (nonWithdrawableStatuses.includes(existing.status)) {
       return apiError("This application can no longer be withdrawn.", 409);
     }
 
