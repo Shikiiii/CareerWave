@@ -109,7 +109,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
               <div className="flex items-start gap-4">
                 <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
                   {companyLogoUrl ? (
-                    <Image src={companyLogoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-2" unoptimized />
+                    <Image src={companyLogoUrl} alt={`${company?.companyName || "Company"} logo`} fill className="bg-white object-contain p-2" unoptimized />
                   ) : (
                     <Building2 className="h-8 w-8" />
                   )}
