@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Building2, MapPin, UsersRound, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent } from "@/components/ui/card";
+import { resolveCompanyLogoUrl } from "@/lib/company-logos";
 
 export default async function CompaniesPage() {
   const companies = await prisma.companyProfile.findMany({
@@ -35,14 +36,17 @@ export default async function CompaniesPage() {
       </section>
 
       <section className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {companies.map((company) => (
+        {companies.map((company) => {
+          const companyLogoUrl = resolveCompanyLogoUrl(company.logoUrl);
+
+          return (
           <Link key={company.id} href={`/companies/${company.id}`} className="group block">
             <Card className="h-full rounded-3xl border-blue-100 transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-blue-100 text-blue-700">
-                    {company.logoUrl ? (
-                      <Image src={company.logoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-1.5" unoptimized />
+                    {companyLogoUrl ? (
+                      <Image src={companyLogoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-1.5" unoptimized />
                     ) : (
                       <Building2 className="h-7 w-7" />
                     )}
@@ -65,7 +69,8 @@ export default async function CompaniesPage() {
               </CardContent>
             </Card>
           </Link>
-        ))}
+          );
+        })}
       </section>
     </main>
   );

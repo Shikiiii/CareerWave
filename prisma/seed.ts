@@ -30,7 +30,7 @@ const companySeed = [
     industry: "Energy / Nuclear Power",
     employeeCount: "3,500",
     location: "Kozloduy, Bulgaria",
-    logoUrl: "/uploads/company-logos/knpp.svg",
+    logoUrl: "/demo-company-logos/knpp.svg",
     description: "Kozloduy Nuclear Power Plant is one of Bulgaria's most important energy employers, offering engineering, IT, safety, operations, and administrative roles.",
     jobs: [
       ["Electrical Systems Engineer", "Maintain and improve electrical systems supporting plant operations.", "Electrical engineering degree\nKnowledge of industrial safety standards\nStrong analytical mindset", "Stable employer\nTraining programs\nAdditional health benefits", "Kozloduy, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.MID, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 2800, 4200],
@@ -43,7 +43,7 @@ const companySeed = [
     industry: "Retail",
     employeeCount: "6,500",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/k.svg",
+    logoUrl: "/demo-company-logos/k.svg",
     description: "Kaufland Bulgaria is a major retail chain with roles in stores, logistics, marketing, finance, IT, and head office operations.",
     jobs: [
       ["Store Operations Manager", "Lead daily store operations, team performance, stock planning, and customer experience.", "Retail leadership experience\nPeople management skills\nStrong organization", "Performance bonuses\nEmployee discounts\nTraining academy", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.MANAGER, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 3200, 5200],
@@ -56,7 +56,7 @@ const companySeed = [
     industry: "Retail / FMCG",
     employeeCount: "5,500",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/billa.svg",
+    logoUrl: "/demo-company-logos/billa.svg",
     description: "Billa Bulgaria operates supermarkets across the country and hires for retail, logistics, finance, marketing, and technology teams.",
     jobs: [
       ["Category Management Assistant", "Support product category planning, supplier communication, and campaign analysis.", "Good Excel skills\nBusiness interest\nOrganized communication", "Food vouchers\nDiscounts\nCareer path in retail", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.HYBRID, ExperienceLevel.JUNIOR, SalaryDisplayType.FLAT, SalaryTaxType.NET, 2100, 2100],
@@ -69,7 +69,7 @@ const companySeed = [
     industry: "Oil / Manufacturing",
     employeeCount: "3,200",
     location: "Burgas, Bulgaria",
-    logoUrl: "/uploads/company-logos/luk.svg",
+    logoUrl: "/demo-company-logos/luk.svg",
     description: "Lukoil Neftochim Burgas is a large industrial employer with engineering, production, maintenance, safety, and IT roles.",
     jobs: [
       ["Process Automation Engineer", "Work on process control systems and automation improvements in industrial production.", "PLC/SCADA knowledge\nEngineering background\nSafety-first mindset", "Industrial scale projects\nTraining\nAdditional benefits", "Burgas, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.MID, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 3000, 5000],
@@ -82,7 +82,7 @@ const companySeed = [
     industry: "Banking / Finance",
     employeeCount: "5,500",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/dsk.svg",
+    logoUrl: "/demo-company-logos/dsk.svg",
     description: "Bank DSK is one of Bulgaria's largest banks, hiring in software development, risk, analytics, branch operations, and customer service.",
     jobs: [
       ["Backend Java Developer", "Build and maintain banking services, integrations, and internal platforms.", "Java/Spring experience\nSQL knowledge\nUnderstanding of APIs", "Hybrid work\nPrivate healthcare\nAnnual bonus", "Sofia / Hybrid", EmploymentType.FULL_TIME, RemoteType.HYBRID, ExperienceLevel.MID, SalaryDisplayType.RANGE, SalaryTaxType.NET, 4500, 7000],
@@ -95,7 +95,7 @@ const companySeed = [
     industry: "Telecommunications",
     employeeCount: "4,500",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/viva.svg",
+    logoUrl: "/demo-company-logos/viva.svg",
     description: "Vivacom is a telecom and technology employer with teams in networking, customer operations, sales, engineering, and software.",
     jobs: [
       ["Network Operations Specialist", "Monitor telecom systems, investigate incidents, and coordinate fixes with engineering teams.", "Networking basics\nShift readiness\nTroubleshooting mindset", "Telecom training\nCareer growth\nEmployee plans", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.HYBRID, ExperienceLevel.JUNIOR, SalaryDisplayType.RANGE, SalaryTaxType.NET, 2300, 3600],
@@ -108,7 +108,7 @@ const companySeed = [
     industry: "Energy",
     employeeCount: "3,500",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/nek.svg",
+    logoUrl: "/demo-company-logos/nek.svg",
     description: "National Electric Company works in electricity generation, trading, and energy infrastructure management.",
     jobs: [
       ["Energy Market Analyst", "Analyze energy market data, prepare forecasts, and support trading decisions.", "Energy market interest\nExcel/Power BI\nAnalytical skills", "Strategic projects\nTraining\nStable employer", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.HYBRID, ExperienceLevel.MID, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 3000, 4600],
@@ -121,7 +121,7 @@ const companySeed = [
     industry: "Metals / Manufacturing",
     employeeCount: "1,100",
     location: "Pirdop, Bulgaria",
-    logoUrl: "/uploads/company-logos/aur.svg",
+    logoUrl: "/demo-company-logos/aur.svg",
     description: "Aurubis Bulgaria is a major copper producer with roles in engineering, production, maintenance, environment, and automation.",
     jobs: [
       ["Environmental Compliance Specialist", "Support environmental reporting, compliance checks, and sustainability initiatives.", "Environmental science background\nStrong documentation\nEnglish skills", "Sustainability projects\nTraining\nTransport support", "Pirdop, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.MID, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 2600, 4200],
@@ -134,7 +134,7 @@ const companySeed = [
     industry: "Pharmaceuticals",
     employeeCount: "3,300",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/sop.svg",
+    logoUrl: "/demo-company-logos/sop.svg",
     description: "Sopharma is a Bulgarian pharmaceutical group hiring in manufacturing, quality, logistics, sales, and IT.",
     jobs: [
       ["Quality Assurance Specialist", "Support quality processes, documentation, and compliance in pharmaceutical production.", "Pharma or chemistry background\nAttention to detail\nGMP knowledge is a plus", "Healthcare benefits\nTraining\nStable employer", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.JUNIOR, SalaryDisplayType.RANGE, SalaryTaxType.GROSS, 2300, 3500],
@@ -147,7 +147,7 @@ const companySeed = [
     industry: "Transport / Rail",
     employeeCount: "8,000+",
     location: "Sofia, Bulgaria",
-    logoUrl: "/uploads/company-logos/bdz.svg",
+    logoUrl: "/demo-company-logos/bdz.svg",
     description: "Bulgarian State Railways is a national transport employer with operations, engineering, logistics, IT, and customer service roles.",
     jobs: [
       ["Rail Operations Dispatcher", "Coordinate train movement information and operational communication with station teams.", "Calm under pressure\nGood communication\nShift availability", "Transport benefits\nTraining\nStable public employer", "Sofia, Bulgaria", EmploymentType.FULL_TIME, RemoteType.ON_SITE, ExperienceLevel.JUNIOR, SalaryDisplayType.FLAT, SalaryTaxType.NET, 2200, 2200],

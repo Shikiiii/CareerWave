@@ -7,6 +7,7 @@ import { JobStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { JobCard } from "@/components/jobs/job-card";
 import { Card, CardContent } from "@/components/ui/card";
+import { resolveCompanyLogoUrl } from "@/lib/company-logos";
 
 export default async function CompanyProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -40,6 +41,8 @@ export default async function CompanyProfilePage({ params }: { params: Promise<{
 
   if (!company) notFound();
 
+  const companyLogoUrl = resolveCompanyLogoUrl(company.logoUrl);
+
   return (
     <main className="bg-gradient-to-b from-blue-50/80 via-white to-white">
       <section className="border-b border-blue-100">
@@ -48,8 +51,8 @@ export default async function CompanyProfilePage({ params }: { params: Promise<{
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex items-start gap-5">
                 <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-                  {company.logoUrl ? (
-                    <Image src={company.logoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-3" unoptimized />
+                  {companyLogoUrl ? (
+                    <Image src={companyLogoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-3" unoptimized />
                   ) : (
                     <Building2 className="h-12 w-12" />
                   )}

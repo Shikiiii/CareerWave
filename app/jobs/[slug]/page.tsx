@@ -21,6 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { prisma } from "@/lib/prisma";
 import { formatPostedDate, formatSalary, humanizeJobValue } from "@/lib/jobs/salary";
+import { resolveCompanyLogoUrl } from "@/lib/company-logos";
 
 function splitLines(value?: string | null) {
   return (value || "")
@@ -73,6 +74,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
   });
 
   const company = updatedJob.employer.companyProfile;
+  const companyLogoUrl = resolveCompanyLogoUrl(company?.logoUrl);
   const requirements = splitLines(updatedJob.requirements);
   const benefits = splitLines(updatedJob.benefits);
 
@@ -106,8 +108,8 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
             <CardContent className="p-6">
               <div className="flex items-start gap-4">
                 <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-                  {company?.logoUrl ? (
-                    <Image src={company.logoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-2" unoptimized />
+                  {companyLogoUrl ? (
+                    <Image src={companyLogoUrl} alt={`${company.companyName} logo`} fill className="bg-white object-contain p-2" unoptimized />
                   ) : (
                     <Building2 className="h-8 w-8" />
                   )}

@@ -15,9 +15,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatPostedDate, formatSalary, humanizeJobValue } from "@/lib/jobs/salary";
+import { resolveCompanyLogoUrl } from "@/lib/company-logos";
 
 export function JobCard({ job, featured = false }: { job: any; featured?: boolean }) {
   const company = job.employer?.companyProfile;
+  const companyLogoUrl = resolveCompanyLogoUrl(company?.logoUrl);
   const postedAt = job.createdAt;
 
   return (
@@ -74,8 +76,8 @@ export function JobCard({ job, featured = false }: { job: any; featured?: boolea
       <aside className="border-t border-blue-100 bg-gradient-to-br from-blue-50/80 to-white p-5 sm:p-6 xl:border-l xl:border-t-0">
         <div className="flex items-start gap-4">
           <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-            {company?.logoUrl ? (
-              <Image src={company.logoUrl} alt={`${company.companyName || "Company"} logo`} fill className="bg-white object-contain p-1.5" unoptimized />
+            {companyLogoUrl ? (
+              <Image src={companyLogoUrl} alt={`${company.companyName || "Company"} logo`} fill className="bg-white object-contain p-1.5" unoptimized />
             ) : (
               <Building2 className="h-7 w-7" />
             )}
