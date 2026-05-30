@@ -158,31 +158,6 @@ npm run prisma:studio    # inspect database
 | Employer | `jobs@danubefintech.example.com` | `Password123!` |
 | Employer | `people@northstarcloud.example.com` | `Password123!` |
 
-## Deployment summary
-
-1. Push this project to GitHub.
-2. Create a production PostgreSQL database.
-3. Add environment variables in Vercel.
-4. Run production migrations with `npm run db:deploy` against the production database.
-5. Seed demo data only if this is a demo environment.
-6. Deploy with Vercel.
-7. Connect `careerwave.eu` in Vercel Domains.
-
-Full guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
-
 ## Documentation
 
-- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
-- [`docs/POSTGRESQL_SETUP.md`](docs/POSTGRESQL_SETUP.md)
-- [`docs/ENVIRONMENT_VARIABLES.md`](docs/ENVIRONMENT_VARIABLES.md)
-- [`docs/PRODUCTION_CHECKLIST.md`](docs/PRODUCTION_CHECKLIST.md)
-- [`docs/TESTING_CHECKLIST.md`](docs/TESTING_CHECKLIST.md)
-- [`docs/PRESENTATION.md`](docs/PRESENTATION.md)
-- [`docs/ARCHITECTURE_EXPLANATION.md`](docs/ARCHITECTURE_EXPLANATION.md)
-- [`docs/DATABASE_EXPLANATION.md`](docs/DATABASE_EXPLANATION.md)
-- [`docs/TECH_STACK_JUSTIFICATION.md`](docs/TECH_STACK_JUSTIFICATION.md)
-- [`docs/FINAL_POLISH_RECOMMENDATIONS.md`](docs/FINAL_POLISH_RECOMMENDATIONS.md)
-
-## Notes
-
-The current upload implementation is suitable for a university demo/local deployment. For real production file storage on Vercel, move uploaded files to persistent object storage such as Vercel Blob, Supabase Storage, S3, or UploadThing.
+- [`docs/SETUP.md`](docs/SETUP.md)
