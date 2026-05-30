@@ -1,20 +1,37 @@
-const LEGACY_SEEDED_LOGO_PREFIX = "/uploads/company-logos/";
-const STATIC_DEMO_LOGO_PREFIX = "/demo-company-logos/";
+const LEGACY_UPLOAD_LOGO_PREFIX = "/uploads/company-logos/";
+const DEMO_LOGO_PREFIX = "/demo-company-logos/";
+
+const SEEDED_LOGO_MAP: Record<string, string> = {
+  "knpp.svg": "kozloduy_npp.jpg",
+  "k.svg": "kaufland.png",
+  "billa.svg": "billa.jpg",
+  "luk.svg": "lukoil.jpg",
+  "dsk.svg": "dsk_bank.jpg",
+  "viva.svg": "vivacom.png",
+  "nek.svg": "nec_national_electricity_company.jpg",
+  "aur.svg": "aurubis_bulgaria.jpg",
+  "sop.svg": "sopharma.svg",
+  "bdz.svg": "bulgarian_state_railways_bdz.png",
+};
 
 /**
- * Demo logos were originally seeded as /uploads/company-logos/*.svg.
- * That folder is gitignored because it is meant for runtime uploads, so those
- * static seed images disappear on Vercel. Keep old database rows working by
- * mapping only those seeded logo paths to committed static assets.
+ * Seeded demo logos are committed static files under /public/demo-company-logos.
+ * Older database rows may still point to generated placeholder SVG names, either
+ * under /uploads/company-logos or /demo-company-logos. This helper maps those
+ * legacy paths to the real logo files supplied for the project.
  *
- * Real uploaded logos should be stored as absolute Vercel Blob URLs and are
- * returned unchanged.
+ * Real uploaded logos are absolute Vercel Blob URLs and are returned unchanged.
  */
 export function resolveCompanyLogoUrl(logoUrl?: string | null) {
   if (!logoUrl) return null;
 
-  if (logoUrl.startsWith(LEGACY_SEEDED_LOGO_PREFIX)) {
-    return logoUrl.replace(LEGACY_SEEDED_LOGO_PREFIX, STATIC_DEMO_LOGO_PREFIX);
+  const isLegacyUploadLogo = logoUrl.startsWith(LEGACY_UPLOAD_LOGO_PREFIX);
+  const isDemoLogo = logoUrl.startsWith(DEMO_LOGO_PREFIX);
+
+  if (isLegacyUploadLogo || isDemoLogo) {
+    const fileName = logoUrl.split("/").pop() ?? "";
+    const mappedFileName = SEEDED_LOGO_MAP[fileName] ?? fileName;
+    return `${DEMO_LOGO_PREFIX}${mappedFileName}`;
   }
 
   return logoUrl;
