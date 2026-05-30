@@ -147,17 +147,6 @@ npm run db:seed          # seed demo data
 npm run prisma:studio    # inspect database
 ```
 
-## Demo accounts
-
-| Role | Email | Password |
-|---|---|---|
-| Job seeker | `maria.petkova@example.com` | `Password123!` |
-| Job seeker | `ivan.georgiev@example.com` | `Password123!` |
-| Job seeker | `elena.stoyanova@example.com` | `Password123!` |
-| Employer | `hr@bluepeak.example.com` | `Password123!` |
-| Employer | `jobs@danubefintech.example.com` | `Password123!` |
-| Employer | `people@northstarcloud.example.com` | `Password123!` |
-
 ## Documentation
 
 - [`docs/SETUP.md`](docs/SETUP.md)
